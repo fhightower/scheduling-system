@@ -1,0 +1,16 @@
+*.log
+*.pot
+*.pyc
+karate.db
+demo/static
+/build
+MANIFEST
+dist
+.tox/
+django_swingtime.egg-info/
+/dev
+.cache/
+.coverage
+.pytest_cache
+venv
+Dockerrun.aws.json
