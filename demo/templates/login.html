@@ -1,0 +1,10 @@
+{% extends "login-base.html" %}
+{% block title %}Login!{% endblock %}
+{% block main_content %}
+    <br><br>
+    <form method="post" action="/cal/">{% csrf_token %}
+        <label>Username: <input type="text"></label><br>
+        <label>Password: <input type="password"></label><br>
+        <input type="submit" value="Login">
+    </form>
+{% endblock %}
