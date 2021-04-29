@@ -38,28 +38,68 @@ def create_sample_data():
         ', '.join(['%s' % et for et in swingtime.EventType.objects.all()]),
     ))
     now = datetime.now()
+    future = now + timedelta(7)
 
     # create a single occurrence event
     evt = swingtime.create_event(
         'C-Section',
         ets['cs'],
         description='C-Section',
-        start_time=datetime.combine(now.date(), time(16)),
-        end_time=datetime.combine(now.date(), time(18)),
+        start_time=datetime.combine(now.date(), time(15)),
+        end_time=datetime.combine(now.date(), time(17)),
         note='C-Section for the Fair Weather OB Office'
     )
     print('Created event "%s" with %d occurrences' % (evt, evt.occurrence_set.count()))
 
-    for i in range(10):
+    for i in range(1):
         # create an event with multiple occurrences by fixed count
         evt = swingtime.create_event(
             'Induction',
             ets['ind'],
             description='Induction',
-            start_time=datetime.combine(now.date(), time(random.randint(9, 19))),
+            start_time=datetime.combine(now.date(), time(random.randint(9, 16))),
+            count=2,
+            byweekday=(rrule.TU, rrule.TH),
+            note="Induction for the Fair Ponds OB Office"
+        )
+        print('Created event "%s" with %d occurrences' % (evt, evt.occurrence_set.count()))
+
+    for i in range(2):
+        # create an event with multiple occurrences by fixed count
+        evt = swingtime.create_event(
+            'Induction',
+            ets['ind'],
+            description='Induction',
+            start_time=datetime.combine(now.date(), time(random.randint(9, 16))),
             count=2,
             byweekday=(rrule.MO, rrule.WE, rrule.FR),
-            note="Induction for the Fair Ponds OB Office"
+            note="Induction for the Fair Game OB Office"
+        )
+        print('Created event "%s" with %d occurrences' % (evt, evt.occurrence_set.count()))
+
+    for i in range(2):
+        # create an event with multiple occurrences by fixed count
+        evt = swingtime.create_event(
+            'C-Section',
+            ets['cs'],
+            description='C-Section',
+            start_time=datetime.combine(now.date(), time(random.randint(9, 16))),
+            count=14,
+            byweekday=(rrule.MO, rrule.TU, rrule.WE, rrule.TH, rrule.FR),
+            note="C-Section for the Fair Ponds OB Office"
+        )
+        print('Created event "%s" with %d occurrences' % (evt, evt.occurrence_set.count()))
+
+    for i in range(1):
+        # create an event with multiple occurrences by fixed count
+        evt = swingtime.create_event(
+            'Induction',
+            ets['ind'],
+            description='Induction',
+            start_time=datetime.combine(future.date(), time(random.randint(9, 16))),
+            count=14,
+            byweekday=(rrule.MO, rrule.TU, rrule.WE, rrule.TH, rrule.FR),
+            note="Induction for the Fair Water OB Office"
         )
         print('Created event "%s" with %d occurrences' % (evt, evt.occurrence_set.count()))
 
