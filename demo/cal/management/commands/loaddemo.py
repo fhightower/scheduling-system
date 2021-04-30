@@ -71,7 +71,7 @@ def create_sample_data():
         start_time=datetime.combine(now.date(), time(11)),
         count=2,
         byweekday=(rrule.MO, rrule.WE, rrule.FR),
-        note="Induction for the Fair Game OB Office"
+        note="Induction for the Fair Weather OB Office"
     )
     print('Created event "%s" with %d occurrences' % (evt, evt.occurrence_set.count()))
 

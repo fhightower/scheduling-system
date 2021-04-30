@@ -47,7 +47,7 @@ def create_sample_data():
         description='Busy',
         start_time=datetime.combine(now.date(), time(15)),
         end_time=datetime.combine(now.date(), time(17)),
-        # note='Busy for the Fair Weather OB Office'
+        note='Busy for the Fair Weather OB Office'
     )
     print('Created event "%s" with %d occurrences' % (evt, evt.occurrence_set.count()))
 
@@ -66,13 +66,13 @@ def create_sample_data():
 
     # create an event with multiple occurrences by fixed count
     evt = swingtime.create_event(
-        'Busy',
-        ets['busy'],
-        description='Busy',
+        'Induction',
+        ets['ind'],
+        description='Induction',
         start_time=datetime.combine(now.date(), time(11)),
         count=2,
         byweekday=(rrule.MO, rrule.WE, rrule.FR),
-        # note="Busy for the Fair Game OB Office"
+        note="Busy for the Fair Weather OB Office"
     )
     print('Created event "%s" with %d occurrences' % (evt, evt.occurrence_set.count()))
 
