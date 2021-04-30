@@ -4,7 +4,6 @@
 | and the database will be pre-populated with some data relative to today's date. |
 #---------------------------------------------------------------------------------+
 '''
-import random
 import os
 import django
 from django.core.management import call_command
@@ -29,8 +28,9 @@ def create_sample_data():
     ets = dict((
         (abbr, swingtime.EventType.objects.create(abbr=abbr, label=label))
         for abbr, label in (
-            ('cs',  'C-Section'),
-            ('ind',  'Induction'),
+            ('cs',  'Busy'),
+            ('ind',  'Busy'),
+            ('busy',  'Busy'),
         )
     ))
     print(__doc__)
@@ -43,65 +43,74 @@ def create_sample_data():
     # create a single occurrence event
     evt = swingtime.create_event(
         'Busy',
-        ets['ind'],
-        # description='C-Section',
+        ets['busy'],
+        description='Busy',
         start_time=datetime.combine(now.date(), time(15)),
         end_time=datetime.combine(now.date(), time(17)),
-        # note='C-Section for the Fair Weather OB Office'
+        # note='Busy for the Fair Weather OB Office'
     )
     print('Created event "%s" with %d occurrences' % (evt, evt.occurrence_set.count()))
 
-    for i in range(1):
-        # create an event with multiple occurrences by fixed count
-        evt = swingtime.create_event(
-            'Busy',
-            ets['ind'],
-            # description='Induction',
-            start_time=datetime.combine(now.date(), time(random.randint(9, 16))),
-            count=2,
-            byweekday=(rrule.TU, rrule.TH),
-            # note="Induction for the Fair Ponds OB Office"
-        )
-        print('Created event "%s" with %d occurrences' % (evt, evt.occurrence_set.count()))
+    # for i in range(1):
+    # create an event with multiple occurrences by fixed count
+    evt = swingtime.create_event(
+        'Busy',
+        ets['busy'],
+        description='Busy',
+        start_time=datetime.combine(now.date(), time(9)),
+        count=2,
+        byweekday=(rrule.TU, rrule.TH),
+        # note="Busy for the Fair Ponds OB Office"
+    )
+    print('Created event "%s" with %d occurrences' % (evt, evt.occurrence_set.count()))
 
-    for i in range(2):
-        # create an event with multiple occurrences by fixed count
-        evt = swingtime.create_event(
-            'Busy',
-            ets['ind'],
-            # description='Induction',
-            start_time=datetime.combine(now.date(), time(random.randint(9, 16))),
-            count=2,
-            byweekday=(rrule.MO, rrule.WE, rrule.FR),
-            # note="Induction for the Fair Game OB Office"
-        )
-        print('Created event "%s" with %d occurrences' % (evt, evt.occurrence_set.count()))
+    # create an event with multiple occurrences by fixed count
+    evt = swingtime.create_event(
+        'Busy',
+        ets['busy'],
+        description='Busy',
+        start_time=datetime.combine(now.date(), time(11)),
+        count=2,
+        byweekday=(rrule.MO, rrule.WE, rrule.FR),
+        # note="Busy for the Fair Game OB Office"
+    )
+    print('Created event "%s" with %d occurrences' % (evt, evt.occurrence_set.count()))
 
-    for i in range(2):
-        # create an event with multiple occurrences by fixed count
-        evt = swingtime.create_event(
-            'Busy',
-            ets['ind'],
-            # description='C-Section',
-            start_time=datetime.combine(now.date(), time(random.randint(9, 16))),
-            count=14,
-            byweekday=(rrule.MO, rrule.TU, rrule.WE, rrule.TH, rrule.FR),
-            # note="C-Section for the Fair Ponds OB Office"
-        )
-        print('Created event "%s" with %d occurrences' % (evt, evt.occurrence_set.count()))
+    # create an event with multiple occurrences by fixed count
+    evt = swingtime.create_event(
+        'Busy',
+        ets['busy'],
+        description='Busy',
+        start_time=datetime.combine(now.date(), time(13)),
+        count=2,
+        byweekday=(rrule.MO, rrule.WE, rrule.FR),
+        # note="Busy for the Fair Game OB Office"
+    )
+    print('Created event "%s" with %d occurrences' % (evt, evt.occurrence_set.count()))
 
-    for i in range(1):
-        # create an event with multiple occurrences by fixed count
-        evt = swingtime.create_event(
-            'Busy',
-            ets['ind'],
-            # description='Induction',
-            start_time=datetime.combine(future.date(), time(random.randint(9, 16))),
-            count=14,
-            byweekday=(rrule.MO, rrule.TU, rrule.WE, rrule.TH, rrule.FR),
-            # note="Induction for the Fair Water OB Office"
-        )
-        print('Created event "%s" with %d occurrences' % (evt, evt.occurrence_set.count()))
+    # create an event with multiple occurrences by fixed count
+    evt = swingtime.create_event(
+        'Busy',
+        ets['busy'],
+        description='Busy',
+        start_time=datetime.combine(now.date(), time(15)),
+        count=14,
+        byweekday=(rrule.MO, rrule.TU, rrule.WE, rrule.TH, rrule.FR),
+        # note="Busy for the Fair Ponds OB Office"
+    )
+    print('Created event "%s" with %d occurrences' % (evt, evt.occurrence_set.count()))
+
+    # create an event with multiple occurrences by fixed count
+    evt = swingtime.create_event(
+        'Busy',
+        ets['busy'],
+        description='Busy',
+        start_time=datetime.combine(future.date(), time(10)),
+        count=14,
+        byweekday=(rrule.MO, rrule.TU, rrule.WE, rrule.TH, rrule.FR),
+        # note="Busy for the Fair Water OB Office"
+    )
+    print('Created event "%s" with %d occurrences' % (evt, evt.occurrence_set.count()))
 
 
 class Command(BaseCommand):
@@ -118,4 +127,3 @@ class Command(BaseCommand):
         print('Done.\n\nCreating sample data...')
         create_sample_data()
         print('Done\n')
-
