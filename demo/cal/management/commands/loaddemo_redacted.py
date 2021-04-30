@@ -28,8 +28,8 @@ def create_sample_data():
     ets = dict((
         (abbr, swingtime.EventType.objects.create(abbr=abbr, label=label))
         for abbr, label in (
-            ('cs',  'Busy'),
-            ('ind',  'Busy'),
+            ('cs',  'C-Section'),
+            ('ind',  'Induction'),
             ('busy',  'Busy'),
         )
     ))
